@@ -1,2 +1,2 @@
-web: gunicorn Cerradura.wsgi
+web: python manage.py collectstatic && gunicorn Cerradura.wsgi
 
