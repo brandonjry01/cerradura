@@ -1,0 +1,128 @@
+{% extends 'main/prueba.html' %}
+{% block title %}Lista Clave puerta{% endblock  %}
+
+{% block content %}
+
+
+
+
+    <main class='container'>
+        <div class='row'>
+            <div class='col-md-8 offset-md-2'>
+                <h1 class="h3 mb-2 font-weight-normal text-center">Lista de Registro</h1>
+                <div>
+                    <table class="table table-hover table-dark table-bordered border-light">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="text-center">Nombre completo</th>
+                                <th scope="col" class="text-center">correo</th>
+                                <th scope="col" class="text-center">telefono</th>
+                                <th scope="col" class="text-center">Autorizacion Vision</th>
+                                <th scope="col" class="text-center">Autorizacion Robotica</th>
+                                <th scope="col" class="text-center">Autorizacion Salon</th>
+                                <th scope="col" class="text-center">editar</th>
+                                <th scope="col" class="text-center">Permisos</th>
+                                </div>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for registro in paginacion %}
+                            <tr>
+                                
+                                <td scope="col" class="text-center">{{registro.nombre_completo }}</td>
+                                <td scope="col" class="text-center">{{registro.email }}</td>
+                                <td scope="col" class="text-center">{{registro.telefono }}</td>
+                                <td scope="col" class="text-center">
+                                    {% if registro.lab_vision %}
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                    <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022"/>
+                                </svg>
+                                {% else %} 
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                                </svg>
+                                {% endif %}
+                                    </td>
+                                    <td scope="col" class="text-center">
+                                        {% if registro.lab_robotica %}
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                        <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022"/>
+                                    </svg>
+                                    {% else %} 
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                                    </svg>
+                                    {% endif %}
+                                        </td>
+                                    </td>
+                                    <td scope="col" class="text-center">
+                                        {% if registro.salon_210 %}
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                        <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022"/>
+                                    </svg>
+                                    {% else %} 
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                                    </svg>
+                                    {% endif %}
+                                        </td>
+                                {% if not registro.usuario.groups.first.name == 'profesor' %}
+                                <td scope="col" class="text-center"><a href="{% url "actualizar_clave" registro.id %}" class="btn btn-outline-primary btn-sm ml-2">Editar</a> </td>
+                                {% else %}
+                                <td></td>
+                                {% endif %}
+                                <td scope="col" class="text-center">
+                                    {% for group in registro.usuario.groups.all %}
+                                        {{ group.name }}{% if not forloop.last %}, {% endif %}
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                            
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <!-- 
+                    <br/><br/>
+                    <p>{{paginacion}}</p>
+                    <p>Anterior: {{ paginacion.has_previous }}</p>
+                    <p>Pagina Actual: {{ paginacion.number }}</p>
+                    <p>siguinte: {{ paginacion.has_next }}</p>
+                    -->
+
+                    
+                </div>
+                <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                        <ul class="pagination">
+                    <!---->
+                        {% if paginacion.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page=1">&laquo Primero</a></li>
+                            <li class="page-item"><a class="page-link" href="?page={{ paginacion.previous_page_number }}">Anterior</a></li>
+                            {% else %}
+                            <li class="page-item disabled"><a class="page-link" href="#">&laquo Primero</a></li>
+                            <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
+                        {% endif %}
+
+                        <!--
+                        <li class="page-item disabled"><a class="page-link" href='#'>pagina {{paginacion.number}} de {{paginacion.paginator.num_pages}}</a></li>
+                        -->
+                        
+                        {% for numero in num_paginas %}
+                        <li class="page-item"><a class="page-link" href='?page={{numero}}'>{{numero}}</a></li>
+                        {% endfor %}
+
+                        {% if paginacion.has_next %}
+                            <li class="page-item"><a class="page-link" href="?page={{paginacion.next_page_number}}">siguiente</a></li>
+                            <li class="page-item"><a class="page-link" href="?page={{ paginacion.paginator.num_pages }}">Ultimo &raquo</a></li>
+                            {% else %}
+                            <li class="page-item disabled"><a class="page-link" href="#">siguiente</a></li>
+                            <li class="page-item disabled"><a class="page-link" href="#">Ultimo &raquo</a></li>
+                        {% endif %}
+
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </main>
+
+    
+{% endblock %}

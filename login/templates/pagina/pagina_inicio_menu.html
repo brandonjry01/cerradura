@@ -1,0 +1,15 @@
+{% if user.groups.first.name == 'profesor' %}
+    <a href="{% url 'registro' %}" class="btn btn-outline-info btn-sm ml-2">Registro</a><br/>
+    <a href="{% url 'lista_puerta' %}" class="btn btn-outline-info btn-sm ml-2">Usuarios</a><br/>
+    <a href="{% url 'verificacion_clave' %}" class="btn btn-outline-info btn-sm ml-2">Entrada</a><br/>
+    <a href="{% url 'verificacion' %}" class="btn btn-outline-info btn-sm ml-2">Lista Entrada</a><br/>
+    <a href="{% url 'modificar_permisos' %}" class="btn btn-outline-info btn-sm ml-2">Permisos</a><br/>
+{% elif user.groups.first.name == 'delegado' %}
+    <a href="{% url 'verificacion_clave' %}" class="btn btn-outline-info btn-sm ml-2">Entrada</a><br/>
+    <a href="{% url 'verificacion' %}" class="btn btn-outline-info btn-sm ml-2">Lista Entrada</a><br/>
+{% else %}
+    {% if not user.groups.first.name == 'estudiante' %}
+        <a href="{% url 'iniciar_sesion' %}" class="btn btn-outline-info btn-sm ml-2">Iniciar</a><br/>
+    {% endif %}
+{% endif %}
+

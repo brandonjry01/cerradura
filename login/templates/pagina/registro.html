@@ -1,0 +1,23 @@
+{% extends 'main/prueba.html' %}
+{% block title %}Registro{% endblock  %}
+{% block content %}
+
+<main class='container'>
+    <div class='row'>
+        <div class='col-md-6 offset-md-3 mt-7'>
+            <form method="POST">
+                {% csrf_token %}
+                {% if error %}
+                    <p class="text-danger">{{ error }}</p>
+                {% endif %}
+                <h1 class="h3 mb-3 font-weight-normal text-center">Registro</h1>
+                {{ form.as_p }}
+                <div class='text-center'>
+                    <button class="btn btn-lg btn-primary" type="submit">Registrarme</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'main/prueba.html' %}
+{% block title %}Modificar Clave puerta{% endblock  %}
+{% block content %}
+    <h1>Modificar datos</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <div class='text-center'>
+            <button class="btn btn-lg btn-primary " type="submit">Valida</button>
+        </div>
+    </form>
+{% endblock  %}

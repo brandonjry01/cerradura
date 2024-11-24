@@ -1,0 +1,35 @@
+{% extends 'main/prueba.html' %}
+{% block title %}inicio{% endblock  %}
+
+{% block content %}
+<p> pagina de inicio </p>
+{% if user.is_authenticated %}
+    <p>algrupo que peternece este usuario es: {{nombre_grupo}}</p>
+    <div>
+    {% include 'pagina/pagina_inicio_menu.html' %}
+    {% if user.verificacion %}
+        <a href="{% url 'actualizar_datos' %}" class="btn btn-outline-primary btn-sm ml-2">Actualizar Datos</a><br/>
+    {% else %}
+        <a href="{% url 'clave_puerta' %}" class="btn btn-outline-success btn-sm ml-2">Crea tu Clave</a><br/>
+    {% endif %}
+    <a href="{% url 'cerrar_sesion' %}" class="btn btn-outline-danger btn-sm ml-2">Cerrar Sesión</a><br/>
+    </div>
+    {% else %}
+    <div>
+        <a href="{% url 'iniciar_sesion' %}" class="btn btn-outline-info btn-sm ml-2">Iniciar Sesion</a>
+    </div>
+{% endif %}
+{% if messages %}
+<div class="messages mt-3">
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+</div>
+
+{% endif %}
+{% if user.is_staff %}
+<a href="{% url 'modificar_permisos_profesor' %}" class="btn btn-outline-danger btn-sm ml-2">Permisos de todos</a>
+{% endif %}
+{% endblock  %}

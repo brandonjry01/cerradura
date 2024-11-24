@@ -1,0 +1,74 @@
+{% extends 'main/prueba.html' %}
+{% block title %}Validación Correcta{% endblock %}
+{% block content %}
+
+    <div class="container mt-5">
+        <div class="text-center">
+            <h1 class="mb-4">{{ validacion }}</h1>
+            
+            <h2 class="mb-4">Bienvenido</h2>
+            
+            {% if persona.lab_vision or persona.lab_robotica %}
+            <div class="mb-3">
+                <h3>Laboratorio de:</h3>
+                {% if persona.lab_vision %}
+                    <h4 class="text-primary">Visión</h4>
+                {% endif %}
+                
+                {% if persona.lab_robotica %}
+                    <h4 class="text-primary">Robótica</h4>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            {% if persona.salon_210 %}
+            <div class="mb-3">
+                <h3>Salón:</h3>
+                <h4 class="text-primary">210</h4>
+            </div>
+            {% endif %}
+
+            <div class="mt-4">
+                <h2 class="text-success">{{ persona.nombre_completo }}</h2>
+            </div>
+
+            <a class="btn btn-primary btn-lg mt-4" href="{% url 'inicio' %}">Volver a inicio</a>
+        </div>
+    </div>
+
+    <style>
+        h1 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+        }
+        h2 {
+            font-size: 2.2rem;
+            color: #2c3e50;
+        }
+        h3 {
+            font-size: 1.8rem;
+            color: #34495e;
+            margin-bottom: 0.5rem;
+        }
+        h4 {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .text-primary {
+            color: #3498db !important;
+        }
+        .text-success {
+            color: #27ae60 !important;
+        }
+        .mb-3 {
+            margin-bottom: 1.5rem !important;
+        }
+        .mb-4 {
+            margin-bottom: 2rem !important;
+        }
+        .mt-4 {
+            margin-top: 2rem !important;
+        }
+    </style>
+
+{% endblock %}

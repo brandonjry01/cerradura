@@ -1,0 +1,77 @@
+{% extends 'main/prueba.html' %}
+{% block title %}Lista Clave puerta{% endblock  %}
+
+{% block content %}
+
+
+
+<main class='container'>
+    <div class='row'>
+        <div class='col-md-6 offset-md-3'>
+            <h1 class="h3 mb-3 font-weight-normal text-center">Lista de Registro</h1>
+            {% if messages %}
+                <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+            {% for registro in paginacion %}
+            {% if not registro.usuario.groups.first.name == 'profesor' %} {# Verifica si el usuario no pertenece al grupo 'profesor' #}
+            <div class='card mt-2'>
+                <div class='card-header'>
+                    <strong>
+                        {{ registro.nombre_completo }} pertenece a {{ registro.usuario.groups.first.name }}
+                    </strong>
+                </div>
+                <div class='card-body d-flex flex-row justify-content-between'>
+                    <div class='d-flex flex-row'>
+                        <form method='POST'>
+                            {% csrf_token %}
+                            <button class='btn btn-primary mx-2' name='estudiante' value='{{registro.usuario.id}}'>Mover a estudiante</button>
+                        </form>
+                        <form method='POST'>
+                            {% csrf_token %}
+                            <button class='btn btn-secondary mx-2' name='delegado' value='{{registro.usuario.id}}'>Mover a delegado</button>
+                        </form>
+                        <form method='POST'>
+                            {% csrf_token %}
+                            <button class='btn btn-success mx-2' name='profesor' value='{{registro.usuario.id}}'>Mover a profesor</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+            <br>
+                <!-- paginacion -->
+                <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                        <ul class="pagination">
+                    <!---->
+                        {% if paginacion.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page=1">&laquo Primero</a></li>
+                            <li class="page-item"><a class="page-link" href="?page={{ paginacion.previous_page_number }}">Anterior</a></li>
+                            {% else %}
+                            <li class="page-item disabled"><a class="page-link" href="#">&laquo Primero</a></li>
+                            <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
+                        {% endif %}
+                        {% for numero in num_paginas %}
+                        <li class="page-item"><a class="page-link" href='?page={{numero}}'>{{numero}}</a></li>
+                        {% endfor %}
+
+                        {% if paginacion.has_next %}
+                            <li class="page-item"><a class="page-link" href="?page={{paginacion.next_page_number}}">siguiente</a></li>
+                            <li class="page-item"><a class="page-link" href="?page={{ paginacion.paginator.num_pages }}">Ultimo &raquo</a></li>
+                            {% else %}
+                            <li class="page-item disabled"><a class="page-link" href="#">siguiente</a></li>
+                            <li class="page-item disabled"><a class="page-link" href="#">Ultimo &raquo</a></li>
+                        {% endif %}
+
+                    </ul>
+                </nav>
+        </div>
+    </div>
+</main>
+
+    
+{% endblock %}

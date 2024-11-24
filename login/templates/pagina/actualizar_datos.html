@@ -1,0 +1,21 @@
+{% extends 'main/prueba.html' %}
+{% block title %}Modificar Clave puerta{% endblock  %}
+{% block content %}
+    <h1>Modificar datos</h1>
+
+    <main class='container'>
+        <div class='row'>
+            <div class='col-md-6 offset-md-3 mt-7'>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <p>Tener en cuenta que la contraseña es de 6 caracteres y solo numeros</p>
+                    <div class='text-center'>
+                        <button class="btn btn-lg btn-primary " type="submit">Valida</button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </main>
+{% endblock  %}
