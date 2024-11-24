@@ -27,9 +27,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: don't run with debug turned on in production!
-SECRET_KEY = config('SECRET_KEY', default='django-insecure-@l=r3t8am0@#6k!29-9%*xa920vg2fv6s_1&k1!)(8c&0l*)_(')
-DEBUG = config('DEBUG', default=True, cast=bool)  # Modo de depuración
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='127.0.0.1').split(',')  # Hosts permitidos
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-@l=r3t8am0@#6k!29-9%*xa920vg2fv6s_1&k1!)(8c&0l*)_(')
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = os.environ.get('DEBUG', 'True') == "True"
+
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '127.0.0.1').split(",")
+
+
 
 
 
@@ -85,19 +90,16 @@ WSGI_APPLICATION = 'Cerradura.wsgi.application'
 
 if not DEBUG:
     DATABASES = {
-        'default': dj_database_url.config(
-            default=config('DATABASE_URL')  # Usa DATABASE_URL directamente
-        )
-    }
+	"default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
+}
+    
 else:
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
-
-
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
