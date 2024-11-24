@@ -32,9 +32,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-@l=r3t8am0@#6k!29-9%*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'True') == "True"
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '127.0.0.1').split(",")
+ALLOWED_HOSTS = ['*', 'web-production-524dd.up.railway.app', '127.0.0.1']
 
-
+CSRF_TRUSTED_ORIGINS = ['https://*.railway.app']
 
 
 
