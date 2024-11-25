@@ -402,7 +402,7 @@ def clave_adquisicion(request):
                 'lab_vision': persona.lab_vision,
                 'lab_robotica': persona.lab_robotica,
                 'nombre_completo': persona.nombre_completo,
-                'valor': mi_dato
+                'valor': valor
         }
         # Si es acceso a salon
         elif persona.salon_210:
@@ -411,7 +411,7 @@ def clave_adquisicion(request):
                 'bienvenida': 'Bienvenido al salon',
                 'salon_210': persona.salon_210,
                 'nombre_completo': persona.nombre_completo,
-                'valor': mi_dato
+                'valor': valor
             }
         return JsonResponse(response_data)
     else:
