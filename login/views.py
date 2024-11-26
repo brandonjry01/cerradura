@@ -438,6 +438,8 @@ def clave_adquisicion_valores(request, mi_dato):
     
     
     if persona.lab_vision or persona.lab_robotica:
+            registro = RegistroAcceso(verificacion=persona)
+            registro.save()
             response_data = {
                 'validacion': 'Valor valido',
                 'bienvenida': 'Bienvenido al laboratorio',
@@ -448,6 +450,8 @@ def clave_adquisicion_valores(request, mi_dato):
         }
         # Si es acceso a salon
     elif persona.salon_210:
+            registro = RegistroAcceso(verificacion=persona)
+            registro.save()
             response_data = {
                 'validacion': 'Valor valido',
                 'bienvenida': 'Bienvenido al salon',
